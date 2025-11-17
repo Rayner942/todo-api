@@ -15,6 +15,10 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import jakarta.validation.Valid; 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 /**
  * Classe principal da aplicação Spring Boot.
  * Contém o modelo (Task), o serviço (TaskService) e o controller (TaskController).
@@ -35,10 +39,16 @@ public class ToDoApiApplication {
  */
 class Task {
     private String id;
+    
+    @NotBlank(message = "A descrição da tarefa é obrigatória e não pode ser vazia.")
+ 
+    @Size(min = 5, max = 255, message = "A descrição deve ter entre 5 e 255 caracteres.")
     private String description;
+    
     private boolean completed;
 
-    // Construtor padrão
+
+
     public Task() {
         this.id = UUID.randomUUID().toString();
         this.completed = false;
@@ -77,7 +87,9 @@ class TaskService {
         addTask(new Task("Aprender Spring Boot"));
         addTask(new Task("Implementar CRUD da API"));
         addTask(new Task("Documentar os Endpoints"));
+   
     }
+
 
     /**
      * Retorna todas as tarefas.
@@ -187,10 +199,9 @@ class TaskController {
      * @return ResponseEntity com a tarefa criada e status 201 (CREATED).
      */
     @PostMapping
-    public ResponseEntity<Task> addTask(@RequestBody Task task) {
+    public ResponseEntity<Task> addTask(@Valid @RequestBody Task task) {
         Task newTask = taskService.addTask(task);
-        // Retorna 201 Created e o recurso recém-criado
-        return new ResponseEntity<>(newTask, HttpStatus.CREATED);
+        return new ResponseEntity<>(newTask, HttpStatus.CREATED); // Retorna 201 CREATED
     }
 
     /**
@@ -201,7 +212,7 @@ class TaskController {
      * @return ResponseEntity com a tarefa atualizada e status 200 (OK), ou 404 (NOT FOUND).
      */
     @PutMapping("/{id}")
-    public Task updateTask(@PathVariable String id, @RequestBody Task taskDetails) {
+    public Task updateTask(@PathVariable String id, @Valid @RequestBody Task taskDetails) {
         return taskService.updateTask(id, taskDetails)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi possível atualizar. Tarefa não encontrada com ID: " + id));
     }
