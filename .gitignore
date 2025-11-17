@@ -1,0 +1,18 @@
+Arquivos ignorados pelo Git para projetos Java/Maven/Spring Boot# Ignorar a pasta de build do Maven
+/target/
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar arquivos específicos do VS Code (alguns podem ser úteis, mas é seguro ignorar)
+.vscode/
+
+# Ignorar arquivos do sistema operacional
+.DS_Store
+
+# Ignorar dependências do Maven (se elas fossem baixadas para a pasta do projeto)
+/lib/
+
+# Ignorar configurações de IDEs
+.idea/
+*.iml

@@ -1,0 +1,35 @@
+### 1. GET: Listar Todas as Tarefas
+GET http://localhost:8080/api/tasks
+
+### 2. POST: Criar uma Nova Tarefa
+# Clique em 'Send Request' acima desta linha.
+POST http://localhost:8080/api/tasks
+Content-Type: application/json
+
+{
+    "description": "Configurar o banco de dados real",
+    "completed": false
+}
+
+### 3. GET: Listar a Tarefa Recém-Criada
+# Substitua o ID abaixo pelo ID retornado na resposta do teste POST acima (Ex: 17dfc067-...)
+# Se você não souber o ID, execute o primeiro GET novamente.
+GET http://localhost:8080/api/tasks/SUBSTITUA_ESTE_ID
+
+### 4. PUT: Atualizar a Tarefa (Marcar como Concluída)
+# Use o mesmo ID do teste 3.
+PUT http://localhost:8080/api/tasks/SUBSTITUA_ESTE_ID
+Content-Type: application/json
+
+{
+    "description": "Configurar o banco de dados real",
+    "completed": true
+}
+
+### 5. DELETE: Excluir a Tarefa
+# Use o mesmo ID do teste 3.
+DELETE http://localhost:8080/api/tasks/SUBSTITUA_ESTE_ID
+
+### 6. GET: Verificar se a Tarefa foi Excluída (Deve dar 404 Not Found)
+# Use o mesmo ID do teste 3.
+GET http://localhost:8080/api/tasks/SUBSTITUA_ESTE_ID
